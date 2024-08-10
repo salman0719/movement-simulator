@@ -13,7 +13,9 @@ import Box from "./box";
 const Network: React.FC = () => {
   const [activeRowIndex, setActiveRowIndex] = useState<number>(0);
   const [activeColIndex, setActiveColIndex] = useState<number>(0);
-  const [direction] = useState<BOT_DIRECTIONS>(DEFAULT_BOT_DIRECTION);
+  const [direction, setDirection] = useState<BOT_DIRECTIONS>(
+    DEFAULT_BOT_DIRECTION,
+  );
 
   const currentValueRef: {
     row: typeof activeRowIndex;
@@ -29,7 +31,7 @@ const Network: React.FC = () => {
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      const { key } = e;
+      const { key, ctrlKey } = e;
 
       if (
         !["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown", "Enter"].includes(
@@ -40,7 +42,7 @@ const Network: React.FC = () => {
       }
 
       const value = valueRef.current;
-      const { row, col } = value;
+      const { row, col, direction } = value;
 
       let newActiveRowIndex: typeof activeRowIndex = row;
       let newActiveColIndex: typeof activeColIndex = col;
@@ -54,6 +56,28 @@ const Network: React.FC = () => {
           newActiveColIndex++;
         } else if (direction === BOT_DIRECTIONS.BOTTOM) {
           newActiveRowIndex++;
+        }
+      } else {
+        if (key === "ArrowLeft") {
+          if (ctrlKey || direction === BOT_DIRECTIONS.LEFT) {
+            newActiveColIndex--;
+          }
+          setDirection(BOT_DIRECTIONS.LEFT);
+        } else if (key === "ArrowUp") {
+          if (ctrlKey || direction === BOT_DIRECTIONS.TOP) {
+            newActiveRowIndex--;
+          }
+          setDirection(BOT_DIRECTIONS.TOP);
+        } else if (key === "ArrowRight") {
+          if (ctrlKey || direction === BOT_DIRECTIONS.RIGHT) {
+            newActiveColIndex++;
+          }
+          setDirection(BOT_DIRECTIONS.RIGHT);
+        } else if (key === "ArrowDown") {
+          if (ctrlKey || direction === BOT_DIRECTIONS.BOTTOM) {
+            newActiveRowIndex++;
+          }
+          setDirection(BOT_DIRECTIONS.BOTTOM);
         }
       }
 

@@ -33,19 +33,8 @@ const Box: React.FC<PropType> = (props: PropType) => {
 
   if (active) {
     style = {
-      position: "absolute",
-      top:
-        "calc(var(--box-height) * " +
-        rowIndex +
-        " + var(--gap) * " +
-        rowIndex +
-        ")",
-      left:
-        "calc(var(--box-width) * " +
-        colIndex +
-        " + var(--gap) * " +
-        colIndex +
-        ")",
+      top: `calc(var(--box-height) * ${rowIndex} + var(--gap) * ${rowIndex})`,
+      left: `calc(var(--box-width) * ${colIndex} + var(--gap) * ${colIndex})`,
     };
   }
 

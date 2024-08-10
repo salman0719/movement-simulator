@@ -1,6 +1,7 @@
 .container {
   --box-width: 40px;
   --box-height: 40px;
+  --border-color: rgb(225 90 29);
   width: var(--box-width);
   height: var(--box-height);
   background-color: rgb(247 247 247);
@@ -13,6 +14,7 @@
   position: absolute;
   background: transparent;
   transition: all .2s linear;
+  border: 3px solid transparent;
 }
 
 .active>div {
@@ -25,4 +27,20 @@
   outline-color: #fff;
   outline-width: 2px;
   outline-style: solid;
+}
+
+.active-border-left {
+  border-left-color: var(--border-color);
+}
+
+.active-border-top {
+  border-top-color: var(--border-color);
+}
+
+.active-border-right {
+  border-right-color: var(--border-color);
+}
+
+.active-border-bottom {
+  border-bottom-color: var(--border-color);
 }

@@ -1,5 +1,28 @@
 .container {
-  width: 40px;
-  height: 40px;
+  --box-width: 40px;
+  --box-height: 40px;
+  width: var(--box-width);
+  height: var(--box-height);
   background-color: rgb(247 247 247);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  position: absolute;
+  background: transparent;
+  transition: all .2s linear;
+}
+
+.active>div {
+  background-color: rgb(54, 54, 54);
+  border-color: rgb(54, 54, 54);
+  width: calc(var(--box-width) / 2);
+  height: calc(var(--box-height) / 2);
+  border-radius: calc(var(--box-width) + var(--box-height));
+  outline-offset: -3px;
+  outline-color: #fff;
+  outline-width: 2px;
+  outline-style: solid;
 }

@@ -2,19 +2,3 @@
   display: flex;
   justify-content: space-between;
 }
-
-.instruction-modal-body {
-  background-color: var(--body-bg-color);
-}
-
-.article,
-.h1 {
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #FFFFFF;
-}
-
-
-.h2 {
-  margin: 15px 0px;
-}

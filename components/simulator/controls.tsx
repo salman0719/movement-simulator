@@ -5,7 +5,7 @@ import PrimaryButton from "@/components/button/primaryButton";
 import classNames from "classnames";
 import styles from "./controls.module.css";
 import ConfigurationModal from "./configurationModal";
-import InstructionModal from "./InstructionModal";
+import InstructionModal from "./instructionModal";
 
 const Controls: React.FC = () => {
   const [showInstructionModal, setShowInstructionModal] =
@@ -27,13 +27,13 @@ const Controls: React.FC = () => {
       <PrimaryButton onClick={onInstructionBtnClick}>
         Instructions
       </PrimaryButton>
-      {showInstructionModal &&
+      {showInstructionModal && (
         <InstructionModal
           onClose={() => {
             setShowInstructionModal(false);
           }}
         />
-      }
+      )}
 
       {showConfigurationModal && (
         <ConfigurationModal

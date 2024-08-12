@@ -24,21 +24,34 @@ const isColsValid = (cols: number) =>
 const ConfigurationModal: React.FC<PropType> = ({ onClose }: PropType) => {
   const { gridRows, setGridRows, gridCols, setGridCols } =
     useSimulatorContext();
-  const [rows, setRows] = useState<typeof gridRows>(gridRows);
-  const [cols, setCols] = useState<typeof gridCols>(gridCols);
+  const [rows, setRows] = useState<typeof gridRows | "">(gridRows);
+  const [cols, setCols] = useState<typeof gridCols | "">(gridCols);
 
   const onRowChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rows = parseInt(e.target.value);
-    !isNaN(rows) && setRows(rows);
+    const { value } = e.target;
+    if (value === "") {
+      setRows("");
+    } else {
+      const rows = parseInt(value);
+      !isNaN(rows) && setRows(rows);
+    }
   };
 
   const onColChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cols = parseInt(e.target.value);
-    !isNaN(cols) && setCols(cols);
+    const { value } = e.target;
+    if (value === "") {
+      setCols("");
+    } else {
+      const cols = parseInt(value);
+      !isNaN(cols) && setCols(cols);
+    }
   };
 
-  const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.nativeEvent.stopImmediatePropagation();
+  const onSave = () => {
+    if (rows === "" || cols === "") {
+      return;
+    }
+
     if (isRowsValid(rows) && isColsValid(cols)) {
       setGridRows(rows);
       setGridCols(cols);
@@ -54,10 +67,10 @@ const ConfigurationModal: React.FC<PropType> = ({ onClose }: PropType) => {
           name="rows"
           label="Grid Rows"
           error={
+            rows !== "" &&
             !isRowsValid(rows) &&
             `Row count should be between ${MIN_GRID_ROWS} & ${MAX_GRID_ROWS}, inclusive`
           }
-          type="number"
           value={rows}
           onChange={onRowChange}
         />
@@ -65,10 +78,10 @@ const ConfigurationModal: React.FC<PropType> = ({ onClose }: PropType) => {
           name="cols"
           label="Grid Columns"
           error={
+            cols !== "" &&
             !isColsValid(cols) &&
             `Column count should be between ${MIN_GRID_COLS} & ${MAX_GRID_COLS}, inclusive`
           }
-          type="number"
           value={cols}
           onChange={onColChange}
         />

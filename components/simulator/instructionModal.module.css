@@ -12,6 +12,11 @@
   background-color: var(--body-bg-color);
 }
 
+.key-identifier {
+  font-weight: bold;
+  font-style: italic;
+}
+
 .article {
   margin-bottom: 15px;
   padding-bottom: 15px;

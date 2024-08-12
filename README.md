@@ -3,7 +3,7 @@
 
 This is an experimental project that attempts to align its appearance with a specific website through its implementation of a simple yet interesting interactive functionality. A droid will be placed inside a cellular structure and the user will be provided control to that bot to move it around that structure.
 
-![Movement Simulator Screenshot](./public/images/movement-simulator-ss.png)
+![Movement Simulator Screenshot](./public/images/movement-simulator-ss.png)\
 *A bot placed in the 2nd row of the 4th column facing upward (north)* 
 
 ## Getting Started

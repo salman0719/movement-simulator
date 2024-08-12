@@ -1,0 +1,41 @@
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  background: transparent;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  background-color: rgb(51 51 51);
+}
+
+.close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  transform: rotate(45deg);
+  stroke: rgb(102, 102, 102);
+  cursor: pointer;
+}
+
+.close:hover {
+  stroke: black;
+}
+
+.body {
+  position: relative;
+  min-width: 160px;
+  min-height: 160px;
+  background-color: white;
+  max-width: 75vh;
+  padding: 28px 14px;
+}

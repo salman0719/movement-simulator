@@ -4,6 +4,7 @@
   --border-color: rgb(225 90 29);
   width: var(--box-width);
   height: var(--box-height);
+  flex: 0 0 var(--box-width);
   background-color: rgb(247 247 247);
   display: flex;
   justify-content: center;

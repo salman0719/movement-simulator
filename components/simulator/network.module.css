@@ -4,6 +4,8 @@
   gap: var(--gap);
   flex-direction: column;
   position: relative;
+  max-width: 90vw;
+  overflow: auto;
 }
 
 .row {

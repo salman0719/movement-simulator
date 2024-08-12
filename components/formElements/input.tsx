@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 interface PropType extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  error?: string;
+  error?: string | null | undefined | false;
 }
 
 const Input: React.FC<PropType> = ({ label, error, ...rest }: PropType) => {

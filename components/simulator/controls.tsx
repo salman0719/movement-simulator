@@ -2,28 +2,38 @@
 
 import React, { useState } from "react";
 import PrimaryButton from "@/components/button/primaryButton";
-import styles from "./instructions.module.css";
 import { createPortal } from "react-dom";
 import classNames from "classnames";
 import Dialog from "../dialog/dialog";
-import { NETWORK_HEIGHT, NETWORK_WIDTH } from "@/utilities/constants";
+import { DEFAULT_GRID_ROWS, DEFAULT_GRID_COLS } from "@/utilities/constants";
+import styles from "./controls.module.css";
+import ConfigurationModal from "./configurationModal";
 
-const Instructions: React.FC = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+const Controls: React.FC = () => {
+  const [showInstructionModal, setShowInstructionModal] =
+    useState<boolean>(false);
+  const [showConfigurationModal, setShowConfigurationModal] =
+    useState<boolean>(false);
 
-  const onClick = () => {
-    setShowModal(!showModal);
+  const onInstructionBtnClick = () => {
+    setShowInstructionModal(!showInstructionModal);
+  };
+
+  const onConfigureBtnClick = () => {
+    setShowConfigurationModal(!showConfigurationModal);
   };
 
   return (
     <div className={classNames(styles.container, "mb-4")}>
-      <PrimaryButton>Configure</PrimaryButton>
-      <PrimaryButton onClick={onClick}>Instructions</PrimaryButton>
-      {showModal &&
+      <PrimaryButton onClick={onConfigureBtnClick}>Configure</PrimaryButton>
+      <PrimaryButton onClick={onInstructionBtnClick}>
+        Instructions
+      </PrimaryButton>
+      {showInstructionModal &&
         createPortal(
           <Dialog
             onClose={() => {
-              setShowModal(false);
+              setShowInstructionModal(false);
             }}
             bodyClassName={styles["instruction-modal-body"]}
           >
@@ -33,7 +43,7 @@ const Instructions: React.FC = () => {
               <p>
                 This is a simulator that allows you to control a bot to move
                 around the grid system. Grid dimension by default is{" "}
-                {NETWORK_HEIGHT} * {NETWORK_WIDTH}.
+                {DEFAULT_GRID_ROWS} * {DEFAULT_GRID_COLS}.
               </p>
             </article>
             <article className={styles.article}>
@@ -49,23 +59,34 @@ const Instructions: React.FC = () => {
                 <br />
                 You can press Ctrl + Direction Keys together to move the robot
                 forcibly in one direction regardless of its previous direction.
-                <br />
-                Aforementioned behaviors are set by default. You will be able to
-                modify some of the configurations on a limited scope.
               </p>
             </article>
             <article className={styles.article}>
               <h2 className={styles.h2}>Configuration</h2>
               <p>
-                Click on the &quot;Configure&quot; button (placed above the
-                grids) to modify available controls.
+                Click on the &quot;Configure&quot; button to change the grid
+                dimensions.
+                <br />
+                <small>
+                  <i>
+                    <b>N.B.</b> More control configuration to follow.
+                  </i>
+                </small>
               </p>
             </article>
           </Dialog>,
           document.body,
         )}
+
+      {showConfigurationModal && (
+        <ConfigurationModal
+          onClose={() => {
+            setShowConfigurationModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };
 
-export default Instructions;
+export default Controls;

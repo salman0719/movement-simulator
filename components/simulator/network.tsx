@@ -2,15 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./network.module.css";
-import {
-  BOT_DIRECTIONS,
-  DEFAULT_BOT_DIRECTION,
-  NETWORK_HEIGHT,
-  NETWORK_WIDTH,
-} from "@/utilities/constants";
+import { BOT_DIRECTIONS, DEFAULT_BOT_DIRECTION } from "@/utilities/constants";
 import Box from "./box";
+import { useSimulatorContext } from "@/utilities/simulatorProvider";
 
 const Network: React.FC = () => {
+  const { gridRows, gridCols } = useSimulatorContext();
+
   const [activeRowIndex, setActiveRowIndex] = useState<number>(0);
   const [activeColIndex, setActiveColIndex] = useState<number>(0);
   const [direction, setDirection] = useState<BOT_DIRECTIONS>(
@@ -21,13 +19,22 @@ const Network: React.FC = () => {
     row: typeof activeRowIndex;
     col: typeof activeColIndex;
     direction: typeof direction;
+    gridRows: typeof gridRows;
+    gridCols: typeof gridCols;
   } = {
     row: activeRowIndex,
     col: activeColIndex,
     direction,
+    gridRows,
+    gridCols,
   };
   const valueRef = useRef<typeof currentValueRef>(currentValueRef);
   valueRef.current = currentValueRef;
+
+  useEffect(() => {
+    activeRowIndex > gridRows && setActiveRowIndex(0);
+    activeColIndex > gridCols && setActiveColIndex(0);
+  }, [gridRows, gridCols, activeColIndex, activeRowIndex]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -42,7 +49,7 @@ const Network: React.FC = () => {
       }
 
       const value = valueRef.current;
-      const { row, col, direction } = value;
+      const { row, col, direction, gridRows, gridCols } = value;
 
       let newActiveRowIndex: typeof activeRowIndex = row;
       let newActiveColIndex: typeof activeColIndex = col;
@@ -81,10 +88,10 @@ const Network: React.FC = () => {
         }
       }
 
-      if (newActiveRowIndex < 0 || newActiveRowIndex >= NETWORK_HEIGHT) {
+      if (newActiveRowIndex < 0 || newActiveRowIndex >= gridRows) {
         return;
       }
-      if (newActiveColIndex < 0 || newActiveColIndex >= NETWORK_WIDTH) {
+      if (newActiveColIndex < 0 || newActiveColIndex >= gridCols) {
         return;
       }
 
@@ -101,19 +108,19 @@ const Network: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {new Array(NETWORK_HEIGHT).fill(0).map((_, rowIndex) => {
+      {new Array(gridRows).fill(0).map((_, rowIndex) => {
         return (
           <div key={rowIndex} className={styles.row}>
-            {new Array(NETWORK_WIDTH).fill(0).map((_, colIndex) => {
+            {new Array(gridCols).fill(0).map((_, colIndex) => {
               return <Box key={colIndex} active={false} />;
             })}
           </div>
         );
       })}
       {activeRowIndex > -1 &&
-        activeRowIndex < NETWORK_HEIGHT &&
+        activeRowIndex < gridRows &&
         activeColIndex > -1 &&
-        activeColIndex < NETWORK_WIDTH && (
+        activeColIndex < gridCols && (
           <Box
             active
             rowIndex={activeRowIndex}

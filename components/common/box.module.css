@@ -1,6 +1,6 @@
 .container {
-  --box-width: 40px;
-  --box-height: 40px;
+  --box-width: 60px;
+  --box-height: 60px;
   --border-color: rgb(225 90 29);
   width: var(--box-width);
   height: var(--box-height);

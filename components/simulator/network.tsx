@@ -107,7 +107,7 @@ const Network: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="network-container">
       {new Array(gridRows).fill(0).map((_, rowIndex) => {
         return (
           <div key={rowIndex} className={styles.row}>

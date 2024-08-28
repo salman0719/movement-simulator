@@ -46,6 +46,7 @@ const Box: React.FC<PropType> = (props: PropType) => {
         active && styles.active,
         active && direction && styles["active-border-" + direction],
       )}
+      data-testid={active ? "bot" : null}
     >
       {active && <div />}
     </div>
